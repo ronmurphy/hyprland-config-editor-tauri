@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyprland Config Editor</title>
+    <script type="module" src="/main.js" defer></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Hyprland Config Editor</h1>
+        <div class="controls">
+          <button id="load-config" class="btn-primary">Load Config</button>
+          <button id="save-config" class="btn-secondary">Save Config</button>
+          <button id="export-config" class="btn-secondary">Export</button>
+          <button id="import-config" class="btn-secondary">Import</button>
+        </div>
+      </header>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="keybinds">Keybinds</button>
+        <button class="tab" data-tab="monitors">Monitors</button>
+        <button class="tab" data-tab="general">General</button>
+        <button class="tab" data-tab="raw">Raw Config</button>
+      </div>
+
+      <div class="tab-content">
+        <!-- Keybinds Tab -->
+        <div id="keybinds-tab" class="tab-panel active">
+          <div class="panel-header">
+            <h2>Keybind Configuration</h2>
+            <button id="add-keybind" class="btn-add">+ Add Keybind</button>
+          </div>
+          
+          <div class="keybind-form" id="keybind-form" style="display: none;">
+            <h3>Add New Keybind</h3>
+            <div class="form-row">
+              <label for="modifiers">Modifiers:</label>
+              <select id="modifiers" multiple>
+                <option value="SUPER">SUPER (Windows key)</option>
+                <option value="CTRL">CTRL</option>
+                <option value="ALT">ALT</option>
+                <option value="SHIFT">SHIFT</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <label for="key">Key:</label>
+              <input type="text" id="key" placeholder="e.g., Q, Return, space" />
+            </div>
+            
+            <div class="form-row">
+              <label for="action-type">Action Type:</label>
+              <select id="action-type">
+                <option value="exec">Launch Application</option>
+                <option value="killactive">Kill Active Window</option>
+                <option value="workspace">Switch Workspace</option>
+                <option value="movetoworkspace">Move to Workspace</option>
+                <option value="togglefloating">Toggle Floating</option>
+                <option value="fullscreen">Toggle Fullscreen</option>
+                <option value="custom">Custom Command</option>
+              </select>
+            </div>
+            
+            <div class="form-row">
+              <label for="action">Action/Command:</label>
+              <input type="text" id="action" placeholder="e.g., kitty, firefox" />
+            </div>
+            
+            <div class="form-buttons">
+              <button id="save-keybind" class="btn-primary">Save Keybind</button>
+              <button id="cancel-keybind" class="btn-secondary">Cancel</button>
+            </div>
+          </div>
+          
+          <div id="keybinds-list" class="keybinds-container">
+            <!-- Keybinds will be populated here -->
+          </div>
+        </div>
+
+        <!-- Monitors Tab -->
+        <div id="monitors-tab" class="tab-panel">
+          <div class="panel-header">
+            <h2>Monitor Configuration</h2>
+            <button id="detect-monitors" class="btn-add">Detect Monitors</button>
+          </div>
+          <div id="monitors-list" class="monitors-container">
+            <p class="placeholder">Click "Detect Monitors" to scan for connected displays</p>
+          </div>
+        </div>
+
+        <!-- General Tab -->
+        <div id="general-tab" class="tab-panel">
+          <h2>General Settings</h2>
+          <div class="settings-grid">
+            <div class="setting-group">
+              <h3>Gaps</h3>
+              <div class="form-row">
+                <label for="gaps-in">Inner gaps:</label>
+                <input type="number" id="gaps-in" value="5" min="0" max="50" />
+              </div>
+              <div class="form-row">
+                <label for="gaps-out">Outer gaps:</label>
+                <input type="number" id="gaps-out" value="10" min="0" max="100" />
+              </div>
+            </div>
+            
+            <div class="setting-group">
+              <h3>Border</h3>
+              <div class="form-row">
+                <label for="border-size">Border size:</label>
+                <input type="number" id="border-size" value="2" min="0" max="10" />
+              </div>
+              <div class="form-row">
+                <label for="border-color">Active border color:</label>
+                <input type="color" id="border-color" value="#ffffff" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Raw Config Tab -->
+        <div id="raw-tab" class="tab-panel">
+          <h2>Raw Configuration</h2>
+          <textarea id="raw-config" class="raw-editor" placeholder="Raw Hyprland configuration will appear here..."></textarea>
+          <div class="form-buttons">
+            <button id="parse-raw" class="btn-primary">Parse & Update</button>
+            <button id="reset-raw" class="btn-secondary">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status bar -->
+      <div id="status-bar" class="status-bar">
+        <span id="status-text">Ready</span>
+      </div>
+    </main>
+  </body>
+</html>
